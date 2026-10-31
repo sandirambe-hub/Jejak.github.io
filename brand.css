@@ -24,3 +24,6 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
 .about article:nth-of-type(3){border-top:2px solid var(--brand-green)}
 :focus-visible{outline-color:var(--green)}
 @media print{header{border-image:none}.event-panel,.event-card{border-top-color:#555}}
+
+/* Preserve the supplied transparent paw image and its aspect ratio. */
+.brand .logo{width:48px;height:48px;object-fit:contain}
