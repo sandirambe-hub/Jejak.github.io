@@ -1,0 +1,26 @@
+/* JEJAK palette sampled from the supplied reference. */
+:root{--brand-blue:#006699;--brand-red:#990000;--brand-green:#339966;--green:var(--brand-blue);--ink:#173446;--muted:#536976;--paper:#f5f8fa;--panel:#fff;--line:#d4e1e8;--soft:#eaf3f8;--success:#237347;--accent-red:#990000}
+html[data-theme=dark]{--green:#75c7ef;--ink:#edf5fa;--muted:#b4c7d3;--paper:#101d26;--panel:#192c38;--line:#3b5261;--soft:#203c4c;--success:#77d3a5;--accent-red:#ffabab}
+header{border-top:4px solid transparent;border-image:linear-gradient(to right,#006699 0 33.333%,#990000 33.333% 66.666%,#339966 66.666%) 1}
+.brand .logo{display:block;width:40px;height:40px;background:none;border-radius:0;flex-shrink:0}.brand .dot{color:var(--accent-red)}
+.primary,.mode-nav a[aria-current=page]{background:var(--brand-blue);color:#fff;border-color:var(--brand-blue)}
+.primary:hover,.mode-nav a[aria-current=page]:hover{background:#005580}
+.export:hover{border-color:var(--green);background:var(--soft)}
+.eyebrow{color:var(--green)}.hero h1,.event-hero h1{color:var(--ink)}
+.searchcard{border-top:3px solid var(--brand-blue)}
+.event-card{border-top:3px solid var(--brand-green)}
+.event-panel{border-top:3px solid var(--brand-blue)}
+.badge{background:var(--soft);color:var(--ink)}
+.event-metric:nth-child(3n+1),.metric:nth-child(3n+1){border-top:3px solid var(--brand-blue)}
+.event-metric:nth-child(3n+2),.metric:nth-child(3n+2){border-top:3px solid var(--brand-green)}
+.event-metric:nth-child(3n),.metric:nth-child(3n){border-top:3px solid var(--brand-red)}
+.event-goals progress{accent-color:var(--brand-green)}
+.bar i{background:var(--brand-blue)}.bar:nth-child(3n+2) i{background:var(--brand-green)}.bar:nth-child(3n) i{background:var(--brand-red)}
+.event-alert{border-inline-start-color:var(--brand-green)}
+.event-error,html[data-theme=dark] .event-error{color:var(--accent-red);border-inline-start-color:var(--brand-red)}
+#eventStop,#stop{color:var(--accent-red)}
+.about article:nth-of-type(1){border-top:2px solid var(--brand-blue)}
+.about article:nth-of-type(2){border-top:2px solid var(--brand-red)}
+.about article:nth-of-type(3){border-top:2px solid var(--brand-green)}
+:focus-visible{outline-color:var(--green)}
+@media print{header{border-image:none}.event-panel,.event-card{border-top-color:#555}}
