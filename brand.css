@@ -27,3 +27,56 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
 
 /* Preserve the supplied transparent paw image and its aspect ratio. */
 .brand .logo{width:48px;height:48px;object-fit:contain}
+
+/* Atlas layout: introduction and search sit side by side on wide screens. */
+@media screen {
+  body { background: var(--paper); }
+  header { min-height: 76px; padding-block: 10px; border-image: none; border-top: 0; }
+  header .brand { gap: 6px; }
+  .mode-nav { display: inline-flex; margin: 24px 0; padding: 4px; gap: 2px; background: var(--soft); border: 1px solid var(--line); border-radius: 15px; }
+  .mode-nav a { border: 0; border-radius: 11px; font-weight: 650; }
+  .explore-layout { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 20px; align-items: stretch; }
+  .hero, .event-hero { background: linear-gradient(135deg,#103b54,#075572 77%,#145d65); color: white; border-radius: 24px; }
+  .hero { display: flex; flex-direction: column; padding: clamp(24px,3vw,42px); }
+  .atlas-label, .event-hero .eyebrow { color: #d4edf1; font-size: .7rem; font-weight: 700; letter-spacing: .15em; }
+  .hero h1, .event-hero h1 { color: white; font-weight: 650; line-height: 1.08; letter-spacing: -.045em; overflow-wrap: anywhere; }
+  .hero h1 { font-size: clamp(2.4rem,4vw,3.5rem); margin-block: 24px 12px; }
+  .hero p, .event-hero p { color: #e0f0f4; margin-top: 0; }
+  .atlas-route { display: block; width: 100%; height: auto; max-height: 145px; margin-top: auto; }
+  .searchcard, .event-panel, .event-card, .charts section { border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 5px 20px #103b540a; }
+  .searchcard { padding: clamp(22px,3vw,36px); }
+  .sectiontitle { font-size: .72rem; color: var(--green); }
+  #fields .formrow:last-of-type { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #fields .formrow > label { min-width: 0; }
+  #fields .primary { grid-column: 1 / -1; }
+  .primary { font-weight: 650; border-radius: 11px; }
+  .event-hero { padding: clamp(24px,4vw,46px); margin-bottom: 24px; }
+  .event-hero .export { display: inline-flex; align-items: center; text-decoration: none; background: var(--panel); }
+  .event-hero .event-copy { line-height: 1.65; }
+  .event-hero .toolbar { margin-top: 16px; }
+  .event-grid { grid-template-columns: repeat(auto-fit,minmax(min(100%,270px),1fr)); }
+  .event-card { border-inline-start: 4px solid var(--brand-green); }
+  .about { grid-template-columns: .85fr 1.15fr 1fr; gap: 24px; }
+  .about p { font-size: .85rem; }
+  [dir=rtl] .hero h1, [dir=rtl] .event-hero h1 { letter-spacing: normal; }
+}
+@media screen and (max-width: 800px) {
+  .explore-layout { grid-template-columns: minmax(0,1fr); gap: 14px; }
+  .atlas-route { display: none; }
+  .hero h1 { margin-top: 12px; }
+  .hero p { margin-bottom: 0; }
+  .mode-nav { display: flex; margin: 16px 0; }
+  .about { grid-template-columns: 1fr; }
+}
+@media screen and (max-width: 600px) {
+  header { flex-wrap: wrap; gap: 8px; }
+  header .toolbar { max-width: 100%; }
+  .hero, .event-hero { border-radius: 16px; }
+  .event-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .event-controls label { min-width: 0; }
+  .event-hero .toolbar > * { max-width: 100%; }
+}
+@media screen and (max-width: 380px) {
+  #fields .formrow:last-of-type { grid-template-columns: 1fr; }
+}
+@media print { .atlas-route, .atlas-label { display: none; } }
