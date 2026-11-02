@@ -120,3 +120,40 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
   footer { gap: 1rem; flex-wrap: wrap; }
   footer .photo-credit { background: rgb(9 19 34 / 50%); padding: 6px 10px; border-radius: 8px; font-size: .75rem; }
 }
+
+/* Keep the paw and wordmark together against the photographic background. */
+header .brand, footer .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  width: fit-content;
+  line-height: 1;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: #f2f6fa;
+  border-radius: 13px;
+}
+.brand-mark .logo { width: 36px; height: 36px; }
+.brand .brand-name {
+  font-family: Manrope, "Segoe UI", system-ui, sans-serif;
+  font-size: 1.65rem;
+  font-weight: 750;
+  letter-spacing: -.055em;
+  color: inherit;
+  text-shadow: 0 1px 4px #07101e;
+}
+footer .brand-mark { width: 30px; height: 30px; border-radius: 9px; }
+footer .brand-mark .logo { width: 26px; height: 26px; }
+footer .brand .brand-name { font-size: 1.15rem; }
+#fields .formrow > .userlabel { flex: 0 1 40ch; min-width: 0; max-width: 100%; }
+#names {
+  min-height: 42px;
+  padding: 9px 12px;
+  line-height: 1.45;
+  resize: vertical;
+  overflow-y: auto;
+}
