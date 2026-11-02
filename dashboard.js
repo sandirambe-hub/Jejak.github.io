@@ -45,7 +45,13 @@ function clearPreviousReport(){
  $('#accountFilter').value='';$('#projectFilter').value='';$('#find').value='';
  $('#gallery').dataset.key='';
 }
-$('#names').oninput=clearPreviousReport;
+const namesField = $('#names');
+function fitUsernameRows() {
+  namesField.rows = Math.min(4, namesField.value.split('\n').length);
+}
+namesField.addEventListener('input', fitUsernameRows);
+window.addEventListener('pageshow', fitUsernameRows);
+namesField.oninput = clearPreviousReport;
 $('#from').onchange=clearPreviousReport;
 $('#to').onchange=clearPreviousReport;
 function filters(){for(const [id,values]of [['accountFilter',state.accounts.map(a=>a.name)],['projectFilter',[...new Set(state.accounts.flatMap(a=>a.wikis.map(w=>w.family)))].sort()]]){const el=$('#'+id),value=el.value;el.innerHTML=`<option value="">${t('all')}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');el.value=values.includes(value)?value:'';}}
