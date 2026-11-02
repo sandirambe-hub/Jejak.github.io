@@ -83,6 +83,8 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
 
 /* A single local photograph supplies the sky in both themes. */
 @media screen {
+  :root { --sky-glass: rgb(255 255 255 / 50%); }
+  html[data-theme=dark] { --sky-glass: rgb(14 30 46 / 50%); }
   body { isolation: isolate; min-height: 100vh; background: #07101e; }
   body::before {
     content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
@@ -93,16 +95,28 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
   header .brand .dot, footer .brand .dot { color: #f29a93; }
   .hero, .event-hero {
     border: 1px solid #e3cfab77;
-    background: linear-gradient(125deg, #091322eb, #111e37c4 48%, #10213d45), url("milky-way.webp") 58% 48% / cover;
+    background: rgb(9 19 34 / 50%);
     box-shadow: 0 14px 46px #02081550;
   }
   .hero { justify-content: flex-end; }
   .atlas-label, .event-hero .eyebrow { color: #f0dbaf; }
   .about, #results, .event-controls, #eventForm, #eventCards > .empty, #eventCards > p, #eventBody > h2, #eventBody > .note {
-    background: var(--panel); border-radius: 16px; padding: clamp(16px, 3vw, 32px);
+    background: var(--sky-glass); border-radius: 16px; padding: clamp(16px, 3vw, 32px);
+  }
+  .searchcard, .mode-nav, .event-card, .event-panel, #message:not(:empty) {
+    background: var(--sky-glass);
+  }
+  /* Let the parent surface provide the tint once for nested report cards. */
+  #results :is(.charts section, .wikitable, .gallery figure, .metric, .activity),
+  .event-panel :is(.event-metric, .wikitable, .event-controls) {
+    background: transparent;
+  }
+  html:not([data-theme=dark]) :is(.searchcard, .about, #results, .event-card, .event-panel, #eventForm) {
+    --muted: #162d3b;
+    --green: #003851;
   }
   #eventBody > p > a { background: var(--panel); padding: 6px 12px; border-radius: 8px; }
   #eventBody > .event-controls { margin-block: 16px; }
   footer { gap: 1rem; flex-wrap: wrap; }
-  footer .photo-credit { background: #091322db; padding: 6px 10px; border-radius: 8px; font-size: .75rem; }
+  footer .photo-credit { background: rgb(9 19 34 / 50%); padding: 6px 10px; border-radius: 8px; font-size: .75rem; }
 }
