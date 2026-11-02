@@ -81,29 +81,28 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
 }
 @media print { .atlas-route, .atlas-label { display: none; } }
 
-/* The sky sits behind the page and never intercepts form interactions. */
+/* A single local photograph supplies the sky in both themes. */
 @media screen {
-  body {
-    --sky-top: #c3e2f1;
-    --sky-horizon: #f4f8fa;
-    --cloud-opacity: .82;
-    position: relative;
-    isolation: isolate;
-    min-height: 100vh;
-    background: linear-gradient(to bottom, var(--sky-top), var(--sky-horizon) 820px);
-  }
-  html[data-theme=dark] body {
-    --sky-top: #172e42;
-    --sky-horizon: #101d26;
-    --cloud-opacity: .09;
-  }
+  body { isolation: isolate; min-height: 100vh; background: #07101e; }
   body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: url("cloudscape.svg") center top / max(820px, 100%) auto repeat-y;
-    opacity: var(--cloud-opacity);
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(175deg, #07112655, #12214018 55%, #070e1db3), url("milky-way.webp") center / cover no-repeat;
   }
+  header, footer { color: #edf2ff; border-color: #ffffff42; }
+  header .brand, footer .brand, footer .photo-credit a { color: inherit; }
+  header .brand .dot, footer .brand .dot { color: #f29a93; }
+  .hero, .event-hero {
+    border: 1px solid #e3cfab77;
+    background: linear-gradient(125deg, #091322eb, #111e37c4 48%, #10213d45), url("milky-way.webp") 58% 48% / cover;
+    box-shadow: 0 14px 46px #02081550;
+  }
+  .hero { justify-content: flex-end; }
+  .atlas-label, .event-hero .eyebrow { color: #f0dbaf; }
+  .about, #results, .event-controls, #eventForm, #eventCards > .empty, #eventCards > p, #eventBody > h2, #eventBody > .note {
+    background: var(--panel); border-radius: 16px; padding: clamp(16px, 3vw, 32px);
+  }
+  #eventBody > p > a { background: var(--panel); padding: 6px 12px; border-radius: 8px; }
+  #eventBody > .event-controls { margin-block: 16px; }
+  footer { gap: 1rem; flex-wrap: wrap; }
+  footer .photo-credit { background: #091322db; padding: 6px 10px; border-radius: 8px; font-size: .75rem; }
 }
