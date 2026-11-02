@@ -60,7 +60,34 @@ function status(a,w){const ts=state.tasks.filter(q=>q.account===a&&(!w||q.w===w)
 function table(headers,rows){return rows.length?'<table><thead><tr>'+headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody></table>':`<p class="empty">${t('empty')}</p>`;}
 function selected(r){const a=$('#accountFilter').value,p=$('#projectFilter').value,s=$('#find').value.toLowerCase();return(!a||r.account===a)&&(!p||r.project===p)&&(!s||[r.wiki,r.title,r.project].join(' ').toLowerCase().includes(s));}
 function counts(rows){const out={edits:0,logs:0};rows.forEach(r=>out[r.kind]++);return out;}
-function bars(el,rows){const max=Math.max(1,...rows.map(r=>r[1]));$(el).innerHTML=rows.length?rows.map(([label,value])=>`<div class="bar"><span>${esc(label)}</span><i style="width:${value/max*100}%" aria-hidden="true"></i><b>${n(value)}</b></div>`).join(''):`<p class="empty">${t('empty')}</p>`;}
+function timelinePreview(rows, max) {
+  const times = rows.map(([label]) => Date.parse(label.length === 7 ? label + '-01' : label));
+  const span = times[times.length - 1] - times[0];
+  const marks = rows.map(([, value], index) => {
+    const x = span ? 4 + 292 * (times[index] - times[0]) / span : 150;
+    const y = 54 - 46 * value / max;
+    return '<line x1="' + x + '" x2="' + x + '" y1="54" y2="' + y + '"/>';
+  });
+  return '<svg class="time-preview" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><g>' + marks.join('') + '</g></svg>';
+}
+
+function bars(selector, rows) {
+  const container = $(selector);
+  if (!rows.length) {
+    container.innerHTML = '<p class="empty">' + esc(t('empty')) + '</p>';
+    return;
+  }
+  const max = rows.reduce((highest, [, value]) => Math.max(highest, value), 1);
+  const timeline = selector === '#timeline';
+  const items = rows.map(([label, value]) => {
+    const width = (100 * value / max).toFixed(3) + '%';
+    return '<li class="chart-item"><div class="chart-caption"><span>' + esc(label) +
+      '</span><strong>' + esc(n(value)) + '</strong></div><div class="chart-track" aria-hidden="true"><i style="width:' +
+      width + '"></i></div></li>';
+  });
+  container.innerHTML = (timeline ? timelinePreview(rows, max) : '') +
+    '<ol class="chart-values">' + items.join('') + '</ol>';
+}
 function render(){if(!state)return;$('#progress').textContent=`${state.start.slice(0,10)} → ${state.end.slice(0,10)} UTC · ${t('done')}: ${n(state.requests)} · ${t('remaining')}: ${n(state.tasks.filter(q=>q.status!=='done').length)}`;$('#more').hidden=!state.tasks.some(q=>q.status!=='done');$('#more').disabled=busy;
  $('#summary').innerHTML=table([t('account'),t('global'),t('edits'),t('logs'),t('state')],state.accounts.map(a=>{const c=counts(state.rows.filter(r=>r.account===a.name));return[a.url?link(a.url,a.name):esc(a.name),a.total===null?'—':n(a.total),n(c.edits),n(c.logs),esc(t(status(a)))];}));
  const filtered=state.rows.filter(selected),chartRows=filtered.filter(r=>r.kind!=='logs'),groups={},projects={};for(const r of chartRows){const key=r.time.slice(0,$('#group').value==='month'?7:10);groups[key]=(groups[key]||0)+1;projects[r.project]=(projects[r.project]||0)+1;}bars('#timeline',Object.entries(groups).sort(([a],[b])=>a.localeCompare(b)));bars('#projectChart',Object.entries(projects).sort((a,b)=>b[1]-a[1]));
