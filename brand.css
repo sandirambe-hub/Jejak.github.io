@@ -80,3 +80,30 @@ header{border-top:4px solid transparent;border-image:linear-gradient(to right,#0
   #fields .formrow:last-of-type { grid-template-columns: 1fr; }
 }
 @media print { .atlas-route, .atlas-label { display: none; } }
+
+/* The sky sits behind the page and never intercepts form interactions. */
+@media screen {
+  body {
+    --sky-top: #c3e2f1;
+    --sky-horizon: #f4f8fa;
+    --cloud-opacity: .82;
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, var(--sky-top), var(--sky-horizon) 820px);
+  }
+  html[data-theme=dark] body {
+    --sky-top: #172e42;
+    --sky-horizon: #101d26;
+    --cloud-opacity: .09;
+  }
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("cloudscape.svg") center top / max(820px, 100%) auto repeat-y;
+    opacity: var(--cloud-opacity);
+  }
+}
